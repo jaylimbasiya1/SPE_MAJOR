@@ -3,11 +3,6 @@ const shortId = require('shortid');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
 
-// exports.read = (req,res) => {
-//     req.profile.hashed_password = undefined
-//     return res.json(req.profile);
-// }
-
 exports.signup = (req, res) => {
     // console.log(req.body);
     User.findOne({ email: req.body.email }).exec((err, user) => {
@@ -74,7 +69,7 @@ exports.signout = (req, res) => {
 
 exports.requireSignin = expressJwt({
     secret: process.env.JWT_SECRET,
-     algorithms: ['HS256']
+    algorithms : ['HS256']
 });
 
 exports.authMiddleware = (req, res, next) => {
@@ -101,7 +96,7 @@ exports.adminMiddleware = (req, res, next) => {
 
         if (user.role !== 1) {
             return res.status(400).json({
-                error: 'Admin resource Access denied'
+                error: 'Admin resource. Access denied'
             });
         }
 
