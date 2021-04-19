@@ -39,7 +39,7 @@ const userSchema = new mongoose.Schema(
         },
         role: {
             type: Number,
-            trim: true
+            default: 1
         },
         photo: {
             data: Buffer,
