@@ -1,8 +1,8 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-
+//http://localhost:8000/api
 export const createBlog = (blog, token) => {
-    return fetch(`${API}/blog`, {
+    return fetch(`http://localhost:8000/api/blog`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
