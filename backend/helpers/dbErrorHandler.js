@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * Get unique error field nem
+ * Get unique error field name
  */
 const uniqueMessage = error => {
     let output;

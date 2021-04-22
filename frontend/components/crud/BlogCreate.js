@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
@@ -213,6 +213,7 @@ const CreateBlog = ({ router }) => {
                             <hr />
 
                             <small className="text-muted">Max size: 1mb</small>
+                            <br />
                             <label className="btn btn-outline-info">
                                 Upload featured image
                                 <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />

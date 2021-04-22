@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-
+//http://localhost:8000/api
 export const create = (tag, token) => {
     return fetch(`http://localhost:8000/api/tag`, {
         method: 'POST',
