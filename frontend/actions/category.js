@@ -1,6 +1,6 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-//http://localhost:8000/api
+// http:localhost:8000/api
 export const create = (category, token) => {
     return fetch(`http://localhost:8000/api/category`, {
         method: 'POST',

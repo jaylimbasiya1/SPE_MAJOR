@@ -2,9 +2,7 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import { API } from '../../config';
-import React from 'react';
 import striptags from 'striptags';
-//http://localhost:8000/api
 const Card = ({ blog }) => {
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
@@ -46,7 +44,7 @@ const Card = ({ blog }) => {
                     <section>
                         <img
                             className="img img-fluid"
-                            style={{ maxHeight: '150px', width: 'auto' }}
+                            style={{ maxHeight: 'auto', width: '100%' }}
                             src={`http://localhost:8000/api/blog/photo/${blog.slug}`}
                             alt={blog.title}
                         />

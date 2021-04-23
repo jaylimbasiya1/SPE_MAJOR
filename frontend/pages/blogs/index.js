@@ -8,29 +8,29 @@ import Card from '../../components/blog/Card';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 
 const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, router }) => {
-    const head = () => (
-        <Head>
-            <title>Programming blogs | {APP_NAME}</title>
-            <meta
-                name="description"
-                content="Programming blogs and tutorials on react node next vue php laravel and web developoment"
-            />
-            <link rel="canonical" href={`${DOMAIN}${router.pathname}`} />
-            <meta property="og:title" content={`Latest web developoment tutorials | ${APP_NAME}`} />
-            <meta
-                property="og:description"
-                content="Programming blogs and tutorials on react node next vue php laravel and web developoment"
-            />
-            <meta property="og:type" content="webiste" />
-            <meta property="og:url" content={`${DOMAIN}${router.pathname}`} />
-            <meta property="og:site_name" content={`${APP_NAME}`} />
+    // const head = () => (
+    //     <Head>
+    //         <title>Programming blogs | {APP_NAME}</title>
+    //         <meta
+    //             name="description"
+    //             content="Programming blogs and tutorials on react node next vue php laravel and web developoment"
+    //         />
+    //         <link rel="canonical" href={`${DOMAIN}${router.pathname}`} />
+    //         <meta property="og:title" content={`Latest web developoment tutorials | ${APP_NAME}`} />
+    //         <meta
+    //             property="og:description"
+    //             content="Programming blogs and tutorials on react node next vue php laravel and web developoment"
+    //         />
+    //         <meta property="og:type" content="webiste" />
+    //         <meta property="og:url" content={`${DOMAIN}${router.pathname}`} />
+    //         <meta property="og:site_name" content={`${APP_NAME}`} />
 
-            <meta property="og:image" content={`${DOMAIN}/static/images/seoblog.jpg`} />
-            <meta property="og:image:secure_url" ccontent={`${DOMAIN}/static/images/seoblog.jpg`} />
-            <meta property="og:image:type" content="image/jpg" />
-            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
-        </Head>
-    );
+    //         <meta property="og:image" content={`${DOMAIN}/static/images/seoblog.jpg`} />
+    //         <meta property="og:image:secure_url" content={`${DOMAIN}/static/images/seoblog.jpg`} />
+    //         <meta property="og:image:type" content="image/jpg" />
+    //         <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+    //     </Head>
+    // );
 
     const [limit, setLimit] = useState(blogsLimit);
     const [skip, setSkip] = useState(0);
@@ -55,7 +55,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
             size > 0 &&
             size >= limit && (
                 <button onClick={loadMore} className="btn btn-outline-primary btn-lg">
-                    Load more
+                    Load mmore
                 </button>
             )
         );
@@ -99,7 +99,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
 
     return (
         <React.Fragment>
-            {head()}
+            {/* {head()} */}
             <Layout>
                 <main>
                     <div className="container-fluid">

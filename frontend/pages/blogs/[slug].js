@@ -7,7 +7,7 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
-//http://localhost:8000/api
+//http:localhost:8000/api
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
 
@@ -25,25 +25,25 @@ const SingleBlog = ({ blog, query }) => {
         loadRelated();
     }, []);
 
-    const head = () => (
-        <Head>
-            <title>
-                {blog.title} | {APP_NAME}
-            </title>
-            <meta name="description" content={blog.mdesc} />
-            <link rel="canonical" href={`${DOMAIN}/blogs/${query.slug}`} />
-            <meta property="og:title" content={`${blog.title}| ${APP_NAME}`} />
-            <meta property="og:description" content={blog.mdesc} />
-            <meta property="og:type" content="webiste" />
-            <meta property="og:url" content={`${DOMAIN}/blogs/${query.slug}`} />
-            <meta property="og:site_name" content={`${APP_NAME}`} />
+    // const head = () => (
+    //     <Head>
+    //         <title>
+    //             {blog.title} | {APP_NAME}
+    //         </title>
+    //         <meta name="description" content={blog.mdesc} />
+    //         <link rel="canonical" href={`http://localhost:3000/blogs/${query.slug}`} />
+    //         <meta property="og:title" content={`${blog.title}| ${APP_NAME}`} />
+    //         <meta property="og:description" content={blog.mdesc} />
+    //         <meta property="og:type" content="webiste" />
+    //         <meta property="og:url" content={`http://localhost:3000/blogs/${query.slug}`} />
+    //         <meta property="og:site_name" content={`${APP_NAME}`} />
 
-            <meta property="og:image" content={`http://localhost:8000/api/blog/photo/${blog.slug}`} />
-            <meta property="og:image:secure_url" ccontent={`http://localhost:8000/api/blog/photo/${blog.slug}`} />
-            <meta property="og:image:type" content="image/jpg" />
-            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
-        </Head>
-    );
+    //         <meta property="og:image" content={`http://localhost:8000/api/blog/photo/${blog.slug}`} />
+    //         <meta property="og:image:secure_url" ccontent={`http:localhost:8000/api/blog/photo/${blog.slug}`} />
+    //         <meta property="og:image:type" content="image/jpg" />
+    //         <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+    //     </Head>
+    // );
 
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
@@ -71,7 +71,7 @@ const SingleBlog = ({ blog, query }) => {
 
     return (
         <React.Fragment>
-            {head()}
+            {/* {head()} */}
             <Layout>
                 <main>
                     <article>
@@ -114,9 +114,9 @@ const SingleBlog = ({ blog, query }) => {
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
 
-                        {/* <div className="container pb-5">
+                        <div className="container pb-5">
                             <p>show comments</p>
-                        </div> */}
+                        </div>
                     </article>
                 </main>
             </Layout>
