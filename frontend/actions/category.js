@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-// http:localhost:8000/api
+import { handleResponse } from './auth';
+
 export const create = (category, token) => {
-    return fetch(`http://localhost:8000/api/category`, {
+    return fetch(`${API}/category`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -12,13 +13,14 @@ export const create = (category, token) => {
         body: JSON.stringify(category)
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
 };
 
 export const getCategories = () => {
-    return fetch(`http://localhost:8000/api/categories`, {
+    return fetch(`${API}/categories`, {
         method: 'GET'
     })
         .then(response => {
@@ -28,7 +30,7 @@ export const getCategories = () => {
 };
 
 export const singleCategory = slug => {
-    return fetch(`http://localhost:8000/api/category/${slug}`, {
+    return fetch(`${API}/category/${slug}`, {
         method: 'GET'
     })
         .then(response => {
@@ -38,7 +40,7 @@ export const singleCategory = slug => {
 };
 
 export const removeCategory = (slug, token) => {
-    return fetch(`http://localhost:8000/api/category/${slug}`, {
+    return fetch(`${API}/category/${slug}`, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -47,6 +49,7 @@ export const removeCategory = (slug, token) => {
         }
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));

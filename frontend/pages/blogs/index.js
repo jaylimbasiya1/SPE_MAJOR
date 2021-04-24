@@ -2,11 +2,11 @@ import Head from 'next/head';
 import Link from 'next/link';
 import { withRouter } from 'next/router';
 import Layout from '../../components/Layout';
-import React,{ useState } from 'react';
+import { useState } from 'react';
 import { listBlogsWithCategoriesAndTags } from '../../actions/blog';
 import Card from '../../components/blog/Card';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
-
+import React from 'react';
 const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, router }) => {
     // const head = () => (
     //     <Head>
@@ -55,7 +55,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
             size > 0 &&
             size >= limit && (
                 <button onClick={loadMore} className="btn btn-outline-primary btn-lg">
-                    Load mmore
+                    Load more
                 </button>
             )
         );

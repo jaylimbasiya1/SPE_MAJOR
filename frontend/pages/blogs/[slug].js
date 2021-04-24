@@ -7,7 +7,7 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
-//http:localhost:8000/api
+//
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
 
@@ -25,25 +25,25 @@ const SingleBlog = ({ blog, query }) => {
         loadRelated();
     }, []);
 
-    // const head = () => (
-    //     <Head>
-    //         <title>
-    //             {blog.title} | {APP_NAME}
-    //         </title>
-    //         <meta name="description" content={blog.mdesc} />
-    //         <link rel="canonical" href={`http://localhost:3000/blogs/${query.slug}`} />
-    //         <meta property="og:title" content={`${blog.title}| ${APP_NAME}`} />
-    //         <meta property="og:description" content={blog.mdesc} />
-    //         <meta property="og:type" content="webiste" />
-    //         <meta property="og:url" content={`http://localhost:3000/blogs/${query.slug}`} />
-    //         <meta property="og:site_name" content={`${APP_NAME}`} />
+    const head = () => (
+        <Head>
+            <title>
+                {blog.title} | {APP_NAME}
+            </title>
+            <meta name="description" content={blog.mdesc} />
+            <link rel="canonical" href={`${DOMAIN}/blogs/${query.slug}`} />
+            <meta property="og:title" content={`${blog.title}| ${APP_NAME}`} />
+            <meta property="og:description" content={blog.mdesc} />
+            <meta property="og:type" content="webiste" />
+            <meta property="og:url" content={`${DOMAIN}/blogs/${query.slug}`} />
+            <meta property="og:site_name" content={`${APP_NAME}`} />
 
-    //         <meta property="og:image" content={`http://localhost:8000/api/blog/photo/${blog.slug}`} />
-    //         <meta property="og:image:secure_url" ccontent={`http:localhost:8000/api/blog/photo/${blog.slug}`} />
-    //         <meta property="og:image:type" content="image/jpg" />
-    //         <meta property="fb:app_id" content={`${FB_APP_ID}`} />
-    //     </Head>
-    // );
+            <meta property="og:image" content={`${API}/blog/photo/${blog.slug}`} />
+            <meta property="og:image:secure_url" ccontent={`${API}/blog/photo/${blog.slug}`} />
+            <meta property="og:image:type" content="image/jpg" />
+            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+        </Head>
+    );
 
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
@@ -71,7 +71,7 @@ const SingleBlog = ({ blog, query }) => {
 
     return (
         <React.Fragment>
-            {/* {head()} */}
+            {head()}
             <Layout>
                 <main>
                     <article>
@@ -79,7 +79,7 @@ const SingleBlog = ({ blog, query }) => {
                             <section>
                                 <div className="row" style={{ marginTop: '-30px' }}>
                                     <img
-                                        src={`http://localhost:8000/api/blog/photo/${blog.slug}`}
+                                        src={`${API}/blog/photo/${blog.slug}`}
                                         alt={blog.title}
                                         className="img img-fluid featured-image"
                                     />
@@ -90,7 +90,11 @@ const SingleBlog = ({ blog, query }) => {
                                 <div className="container">
                                     <h1 className="display-2 pb-3 pt-3 text-center font-weight-bold">{blog.title}</h1>
                                     <p className="lead mt-3 mark">
-                                        Written by {blog.postedBy.name} | Published {moment(blog.updatedAt).fromNow()}
+                                        Written by{' '}
+                                        <Link href={`/profile/${blog.postedBy.username}`}>
+                                            <a>{blog.postedBy.username}</a>
+                                        </Link>{' '}
+                                        | Published {moment(blog.updatedAt).fromNow()}
                                     </p>
 
                                     <div className="pb-3">

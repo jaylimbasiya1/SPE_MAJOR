@@ -2,7 +2,7 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import { API } from '../../config';
-import striptags from 'striptags';
+
 const Card = ({ blog }) => {
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
@@ -29,7 +29,11 @@ const Card = ({ blog }) => {
             </header>
             <section>
                 <p className="mark ml-1 pt-2 pb-2">
-                    Written by {blog.postedBy.name} | Published {moment(blog.updatedAt).fromNow()}
+                    Written by{' '}
+                    <Link href={`/profile/${blog.postedBy.username}`}>
+                        <a>{blog.postedBy.username}</a>
+                    </Link>{' '}
+                    | Published {moment(blog.updatedAt).fromNow()}
                 </p>
             </section>
             <section>
@@ -45,14 +49,14 @@ const Card = ({ blog }) => {
                         <img
                             className="img img-fluid"
                             style={{ maxHeight: 'auto', width: '100%' }}
-                            src={`http://localhost:8000/api/blog/photo/${blog.slug}`}
+                            src={`${API}/blog/photo/${blog.slug}`}
                             alt={blog.title}
                         />
                     </section>
                 </div>
                 <div className="col-md-8">
                     <section>
-                        <div className="pb-3">{striptags(blog.excerpt)}</div>
+                        <div className="pb-3">{renderHTML(blog.excerpt)}</div>
                         <Link href={`/blogs/${blog.slug}`}>
                             <a className="btn btn-primary pt-2">Read more</a>
                         </Link>

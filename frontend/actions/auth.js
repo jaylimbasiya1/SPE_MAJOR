@@ -1,10 +1,23 @@
 import fetch from 'isomorphic-fetch';
 import cookie from 'js-cookie';
 import { API } from '../config';
+import Router from 'next/router';
 
-// http://localhost:8000/api
+export const handleResponse = response => {
+    if (response.status === 401) {
+        signout(() => {
+            Router.push({
+                pathname: '/signin',
+                query: {
+                    message: 'Your session is expired. Please signin'
+                }
+            });
+        });
+    }
+};
+
 export const signup = user => {
-    return fetch(`http://localhost:8000/api/signup`, {
+    return fetch(`${API}/signup`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -19,7 +32,7 @@ export const signup = user => {
 };
 
 export const signin = user => {
-    return fetch(`http://localhost:8000/api/signin`, {
+    return fetch(`${API}/signin`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -38,7 +51,7 @@ export const signout = next => {
     removeLocalStorage('user');
     next();
 
-    return fetch(`http://localhost:8000/api/signout`, {
+    return fetch(`${API}/signout`, {
         method: 'GET'
     })
         .then(response => {
@@ -97,6 +110,17 @@ export const isAuth = () => {
             } else {
                 return false;
             }
+        }
+    }
+};
+
+export const updateUser = (user, next) => {
+    if (process.browser) {
+        if (localStorage.getItem('user')) {
+            let auth = JSON.parse(localStorage.getItem('user'));
+            auth = user;
+            localStorage.setItem('user', JSON.stringify(auth));
+            next();
         }
     }
 };

@@ -1,8 +1,9 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
-// http:localhost:8000/api
+import { handleResponse } from './auth';
+
 export const create = (tag, token) => {
-    return fetch(`http://localhost:8000/api/tag`, {
+    return fetch(`${API}/tag`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -12,13 +13,14 @@ export const create = (tag, token) => {
         body: JSON.stringify(tag)
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
 };
 
 export const getTags = () => {
-    return fetch(`http://localhost:8000/api/tags`, {
+    return fetch(`${API}/tags`, {
         method: 'GET'
     })
         .then(response => {
@@ -28,7 +30,7 @@ export const getTags = () => {
 };
 
 export const singleTag = slug => {
-    return fetch(`http://localhost:8000/api/tag/${slug}`, {
+    return fetch(`${API}/tag/${slug}`, {
         method: 'GET'
     })
         .then(response => {
@@ -38,7 +40,7 @@ export const singleTag = slug => {
 };
 
 export const removeTag = (slug, token) => {
-    return fetch(`http://localhost:8000/api/tag/${slug}`, {
+    return fetch(`${API}/tag/${slug}`, {
         method: 'DELETE',
         headers: {
             Accept: 'application/json',
@@ -47,6 +49,7 @@ export const removeTag = (slug, token) => {
         }
     })
         .then(response => {
+            handleResponse(response);
             return response.json();
         })
         .catch(err => console.log(err));
