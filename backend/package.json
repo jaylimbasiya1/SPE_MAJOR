@@ -24,6 +24,7 @@
     "mailgun-js": "^0.22.0",
     "mongoose": "^5.12.3",
     "morgan": "^1.10.0",
+    "netmask": "^2.0.2",
     "nodemailer": "^6.5.0",
     "nodemon": "^2.0.7",
     "shortid": "^2.2.16",
