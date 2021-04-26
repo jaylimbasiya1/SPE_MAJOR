@@ -11,7 +11,7 @@ const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import '../../node_modules/react-quill/dist/quill.snow.css';
 import { QuillModules, QuillFormats } from '../../helpers/quill';
 import { API } from '../../config';
-
+import React from 'react';
 const BlogUpdate = ({ router }) => {
     const [body, setBody] = useState('');
 
@@ -256,7 +256,7 @@ const BlogUpdate = ({ router }) => {
                     </div>
 
                     {body && (
-                        <img src={`http://localhost:8000/api/blog/photo/${router.query.slug}`} alt={title} style={{ width: '100%' }} />
+                        <img src={`${API}/blog/photo/${router.query.slug}`} alt={title} style={{ width: '100%' }} />
                     )}
                 </div>
 

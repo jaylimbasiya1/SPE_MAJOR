@@ -2,7 +2,7 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import { useState, useEffect } from 'react';
 import { listSearch } from '../../actions/blog';
-
+import React from 'react';
 const Search = () => {
     const [values, setValues] = useState({
         search: undefined,

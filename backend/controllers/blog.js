@@ -1,6 +1,7 @@
 const Blog = require('../models/blog');
 const Category = require('../models/category');
 const Tag = require('../models/tag');
+const User = require('../models/user');
 const formidable = require('formidable');
 const slugify = require('slugify');
 const stripHtml = require('string-strip-html');
@@ -8,7 +9,7 @@ const _ = require('lodash');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 const fs = require('fs');
 const { smartTrim } = require('../helpers/blog');
-
+const logger = require('../logger/log');
 exports.create = (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
@@ -117,7 +118,39 @@ exports.list = (req, res) => {
         });
 };
 
+exports.listByUser = (req, res) => {
+    User.findOne({ username: req.params.username }).exec((err, user) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        let userId = user._id;
+        Blog.find({ postedBy: userId })
+            .populate('categories', '_id name slug')
+            .populate('tags', '_id name slug')
+            .populate('postedBy', '_id name username')
+            .select('_id title slug postedBy createdAt updatedAt')
+            .exec((err, data) => {
+                if (err) {
+                    return res.status(400).json({
+                        error: errorHandler(err)
+                    });
+                }
+                res.json(data);
+            });
+    });
+};
+
 exports.listAllBlogsCategoriesTags = (req, res) => {
+    User.findOne({ username: req.params.username }).exec((err, user) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+    
+    let userId = user._id;
     let limit = req.body.limit ? parseInt(req.body.limit) : 10;
     let skip = req.body.skip ? parseInt(req.body.skip) : 0;
 
@@ -125,7 +158,7 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
     let categories;
     let tags;
 
-    Blog.find({})
+    Blog.find({postedBy: userId }).sort({ clicks: 1 })
         .populate('categories', '_id name slug')
         .populate('tags', '_id name slug')
         .populate('postedBy', '_id name username profile')
@@ -161,11 +194,33 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
                 });
             });
         });
+      
+    });
 };
 
 exports.read = (req, res) => {
     const slug = req.params.slug.toLowerCase();
-    Blog.findOne({ slug })
+    
+    Blog.findOne({ slug }).exec((err, oldBlog) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        oldBlog.clicks = oldBlog.clicks +1;
+        oldBlog.save((errr, result) => {
+            if (err) {
+                return res.status(400).json({
+                    error: errorHandler(err)
+                });
+            }
+            console.log(result);
+
+    });
+});
+    
+    
+    Blog.findOne({ slug }).sort({ clicks: 1})
         // .select("-photo")
         .populate('categories', '_id name slug')
         .populate('tags', '_id name slug')
@@ -178,6 +233,16 @@ exports.read = (req, res) => {
                 });
             }
             res.json(data);
+            
+            let inf ={
+                userid:data.postedBy._id,
+                username:data.postedBy.username,
+                postid:data._id,
+                category:data.categories,
+                tag:data.tags
+            }
+            logger.info(inf);
+            // logger.log("hello");
         });
 };
 
@@ -194,7 +259,7 @@ exports.remove = (req, res) => {
         });
     });
 };
-
+// ObjectId("607d1631c6bcff3de78747df")
 exports.update = (req, res) => {
     const slug = req.params.slug.toLowerCase();
 
@@ -311,3 +376,5 @@ exports.listSearch = (req, res) => {
         ).select('-photo -body');
     }
 };
+
+

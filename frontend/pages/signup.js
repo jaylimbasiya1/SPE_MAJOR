@@ -1,7 +1,7 @@
 import Layout from '../components/Layout';
 import SignupComponent from '../components/auth/SignupComponent';
 import Link from 'next/link';
-
+import React from 'react';
 const Signup = () => {
     return (
         <Layout>

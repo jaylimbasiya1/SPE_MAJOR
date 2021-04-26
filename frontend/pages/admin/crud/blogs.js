@@ -2,10 +2,7 @@ import Layout from '../../../components/Layout';
 import Admin from '../../../components/auth/Admin';
 import BlogRead from '../../../components/crud/BlogRead';
 import Link from 'next/link';
-
-
-
-
+import React from 'react';
 const Blog = () => {
     return (
         <Layout>

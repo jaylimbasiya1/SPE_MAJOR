@@ -2,7 +2,7 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import { API } from '../../config';
-
+import React from 'react';
 const Card = ({ blog }) => {
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (

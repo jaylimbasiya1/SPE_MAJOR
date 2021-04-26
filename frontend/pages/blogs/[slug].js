@@ -1,13 +1,13 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
-import React,{ useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { singleBlog, listRelated } from '../../actions/blog';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
-//
+import React from 'react';
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
 
@@ -113,14 +113,14 @@ const SingleBlog = ({ blog, query }) => {
                             </section>
                         </div>
 
-                        <div className="container">
+                        {/* <div className="container">
                             <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
                             <div className="row">{showRelatedBlog()}</div>
                         </div>
 
                         <div className="container pb-5">
                             <p>show comments</p>
-                        </div>
+                        </div> */}
                     </article>
                 </main>
             </Layout>

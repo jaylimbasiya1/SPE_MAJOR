@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import React,{ useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { withRouter } from 'next/router';
@@ -10,7 +10,7 @@ import { createBlog } from '../../actions/blog';
 const ReactQuill = dynamic(() => import('react-quill'), { ssr: false });
 import '../../node_modules/react-quill/dist/quill.snow.css';
 import { QuillModules, QuillFormats } from '../../helpers/quill';
-
+import React from 'react';
 const CreateBlog = ({ router }) => {
     const blogFromLS = () => {
         if (typeof window === 'undefined') {

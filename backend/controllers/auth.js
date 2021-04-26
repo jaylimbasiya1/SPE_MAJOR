@@ -1,7 +1,9 @@
 const User = require('../models/user');
+const Blog = require('../models/blog');
 const shortId = require('shortid');
 const jwt = require('jsonwebtoken');
 const expressJwt = require('express-jwt');
+const { errorHandler } = require('../helpers/dbErrorHandler');
 
 exports.signup = (req, res) => {
     // console.log(req.body);
@@ -68,8 +70,8 @@ exports.signout = (req, res) => {
 };
 
 exports.requireSignin = expressJwt({
-    secret: process.env.JWT_SECRET,
-    algorithms: ['HS256']
+    secret: process.env.JWT_SECRET ,
+    algorithms:['HS256']
 });
 
 exports.authMiddleware = (req, res, next) => {
@@ -103,4 +105,75 @@ exports.adminMiddleware = (req, res, next) => {
         req.profile = user;
         next();
     });
+};
+
+exports.canUpdateDeleteBlog = (req, res, next) => {
+    const slug = req.params.slug.toLowerCase();
+    Blog.findOne({ slug }).exec((err, data) => {
+        if (err) {
+            return res.status(400).json({
+                error: errorHandler(err)
+            });
+        }
+        let authorizedUser = data.postedBy._id.toString() === req.profile._id.toString();
+        if (!authorizedUser) {
+            return res.status(400).json({
+                error: 'You are not authorized'
+            });
+        }
+        next();
+    });
+};
+
+exports.test =()=>{
+    const nodemailer = require('nodemailer');
+    const { google } = require('googleapis');
+
+// These id's and secrets should come from .env file.
+const CLIENT_ID = process.env.MAIL_CLIENT_ID;
+const CLEINT_SECRET = process.env.MAIL_CLEINT_SECRET;
+const REDIRECT_URI = process.env.MAIL_REDIRECT_URI;
+const REFRESH_TOKEN = process.env.MAIL_REFRESH_TOKEN;
+// console.log(`${CLIENT_ID} ${CLEINT_SECRET} ${REDIRECT_URI} ${REFRESH_TOKEN} `);
+const oAuth2Client = new google.auth.OAuth2(
+  CLIENT_ID,
+  CLEINT_SECRET,
+  REDIRECT_URI
+);
+oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+
+async function sendMail() {
+  try {
+    const accessToken = await oAuth2Client.getAccessToken();
+
+    const transport = nodemailer.createTransport({
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: process.env.MAIL_ADDRESS,
+        clientId: CLIENT_ID,
+        clientSecret: CLEINT_SECRET,
+        refreshToken: REFRESH_TOKEN,
+        accessToken: accessToken,
+      },
+    });
+
+    const mailOptions = {
+      from: 'SPE MAJOR TEST<limbasiya.jaykumar.228@ldce.ac.in>',
+      to: 'ljm.limbasiya@gmail.com',
+      subject: 'SPE MAJOR TEST MAIL',
+      text: 'Hello from gmail email using API',
+      html: '<h1>Hello from gmail email using API</h1></BR><h2>Hello from gmail email using API</h2>',
+    };
+
+    const result = await transport.sendMail(mailOptions);
+    return result;
+  } catch (error) {
+    return error;
+  }
+}
+
+sendMail()
+  .then((result) => console.log('Email sent...', result))
+  .catch((error) => console.log(error.message));
 };

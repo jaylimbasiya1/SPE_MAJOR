@@ -1,7 +1,7 @@
-import React,{ useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { signup, isAuth } from '../../actions/auth';
 import Router from 'next/router';
-
+import React from 'react';
 const SignupComponent = () => {
     const [values, setValues] = useState({
         name: 'Ryan',

@@ -1,4 +1,4 @@
-import React,{ useState } from 'react';
+import { useState } from 'react';
 import Link from 'next/link';
 import Router from 'next/router';
 import NProgress from 'nprogress';
@@ -19,7 +19,7 @@ import {
 } from 'reactstrap';
 import '.././node_modules/nprogress/nprogress.css';
 import Search from './blog/Search';
-
+import React from 'react';
 Router.onRouteChangeStart = url => NProgress.start();
 Router.onRouteChangeComplete = url => NProgress.done();
 Router.onRouteChangeError = url => NProgress.done();
@@ -86,6 +86,12 @@ const Header = () => {
                 </NavLink>
               </NavItem>
             )}
+
+            {/* <NavItem>
+              <Link href="/user/crud/create">
+                <NavLink className="btn btn-primary text-light">Write a blog</NavLink>
+              </Link>
+            </NavItem> */}
           </Nav>
         </Collapse>
       </Navbar>

@@ -1,15 +1,14 @@
 import Layout from '../../components/Layout';
 import Admin from '../../components/auth/Admin';
+import BlogRead from '../../components/crud/BlogRead';
+import { isAuth } from '../../actions/auth';
 import Link from 'next/link';
-import getConfig from 'next/config';
-import {API} from '../../config';
-import { from } from 'form-data';
-const { publicRuntimeConfig } = getConfig();
+import React from 'react';
 const AdminIndex = () => {
+    const username = isAuth() && isAuth().username;
     return (
         <Layout>
             <Admin>
-                <h1>{API}</h1>
                 <div className="container-fluid">
                     <div className="row">
                         <div className="col-md-12 pt-5 pb-5">
@@ -46,9 +45,13 @@ const AdminIndex = () => {
                                 </li>
                             </ul>
                         </div>
-                       
+                        {/* <div className="col-md-8">right</div> */}
                     </div>
                 </div>
+                {/* <div>
+                All the blog by  this user posrt here `{username}`
+                <BlogRead username={username} />
+                </div> */}
             </Admin>
         </Layout>
     );

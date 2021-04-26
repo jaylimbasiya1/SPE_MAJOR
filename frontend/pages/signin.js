@@ -1,7 +1,7 @@
 import Layout from '../components/Layout';
 import { withRouter } from 'next/router';
 import SigninComponent from '../components/auth/SigninComponent';
-
+import React from 'react';
 const Signin = ({ router }) => {
     const showRedirectMessage = () => {
         if (router.query.message) {

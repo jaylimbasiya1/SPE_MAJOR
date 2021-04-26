@@ -5,27 +5,26 @@ import { userPublicProfile } from '../../actions/user';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import moment from 'moment';
 import React from 'react';
-//${API}
 const UserProfile = ({ user, blogs, query }) => {
-    // const head = () => (
-    //     <Head>
-    //         <title>
-    //             {user.username} | {APP_NAME}
-    //         </title>
-    //         <meta name="description" content={`Blogs by ${user.username}`} />
-    //         <link rel="canonical" href={`${DOMAIN}/profile/${query.username}`} />
-    //         <meta property="og:title" content={`${user.username}| ${APP_NAME}`} />
-    //         <meta property="og:description" content={`Blogs by ${user.username}`} />
-    //         <meta property="og:type" content="webiste" />
-    //         <meta property="og:url" content={`${DOMAIN}/profile/${query.username}`} />
-    //         <meta property="og:site_name" content={`${APP_NAME}`} />
+    const head = () => (
+        <Head>
+            <title>
+                {user.username} | {APP_NAME}
+            </title>
+            <meta name="description" content={`Blogs by ${user.username}`} />
+            <link rel="canonical" href={`${DOMAIN}/profile/${query.username}`} />
+            <meta property="og:title" content={`${user.username}| ${APP_NAME}`} />
+            <meta property="og:description" content={`Blogs by ${user.username}`} />
+            <meta property="og:type" content="webiste" />
+            <meta property="og:url" content={`${DOMAIN}/profile/${query.username}`} />
+            <meta property="og:site_name" content={`${APP_NAME}`} />
 
-    //         <meta property="og:image" content={`${DOMAIN}/static/images/seoblog.jpg`} />
-    //         <meta property="og:image:secure_url" content={`${DOMAIN}/static/images/seoblog.jpg`} />
-    //         <meta property="og:image:type" content="image/jpg" />
-    //         <meta property="fb:app_id" content={`${FB_APP_ID}`} />
-    //     </Head>
-    // );
+            <meta property="og:image" content={`${DOMAIN}/static/images/seoblog.jpg`} />
+            <meta property="og:image:secure_url" content={`${DOMAIN}/static/images/seoblog.jpg`} />
+            <meta property="og:image:type" content="image/jpg" />
+            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+        </Head>
+    );
 
     const showUserBlogs = () => {
         return blogs.map((blog, i) => {
@@ -41,9 +40,9 @@ const UserProfile = ({ user, blogs, query }) => {
 
     return (
         <React.Fragment>
-            {/* {head()} */}
+            {head()}
             <Layout>
-            <div className="container">
+                <div className="container">
                     <div className="row">
                         <div className="col-md-12">
                             <div className="card">

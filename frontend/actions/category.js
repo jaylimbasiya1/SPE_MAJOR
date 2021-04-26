@@ -1,7 +1,7 @@
 import fetch from 'isomorphic-fetch';
 import { API } from '../config';
 import { handleResponse } from './auth';
-
+import React from 'react';
 export const create = (category, token) => {
     return fetch(`${API}/category`, {
         method: 'POST',

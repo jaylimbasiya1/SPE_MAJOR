@@ -2,7 +2,7 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import { API } from '../../config';
-
+import React from 'react';
 const SmallCard = ({ blog }) => {
     return (
         <div className="card">
@@ -11,7 +11,7 @@ const SmallCard = ({ blog }) => {
                     <a>
                         <img
                             className="img img-fluid"
-                            style={{ maxHeight: 'auto', width: '100%' }}
+                            style={{ height: '250px', width: '100%' }}
                             src={`${API}/blog/photo/${blog.slug}`}
                             alt={blog.title}
                         />
