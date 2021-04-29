@@ -3,7 +3,7 @@ import Private from '../../../components/auth/Private';
 import BlogRead from '../../../components/crud/BlogRead';
 import Link from 'next/link';
 import { isAuth } from '../../../actions/auth';
-import React from 'react';
+
 const Blog = () => {
     const username = isAuth() && isAuth().username;
     return (

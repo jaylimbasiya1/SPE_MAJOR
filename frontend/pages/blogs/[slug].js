@@ -7,6 +7,7 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
+
 import React from 'react';
 const SingleBlog = ({ blog, query }) => {
     const [related, setRelated] = useState([]);
@@ -47,28 +48,21 @@ const SingleBlog = ({ blog, query }) => {
 
     const showBlogCategories = blog =>
         blog.categories.map((c, i) => (
-            <Link key={i} href={`/categories/${c.slug}`}>
+            // <Link key={i} href={`/categories/${c.slug}`}>
                 <a className="btn btn-primary mr-1 ml-1 mt-3">{c.name}</a>
-            </Link>
+            // </Link>
         ));
 
     const showBlogTags = blog =>
         blog.tags.map((t, i) => (
-            <Link key={i} href={`/tags/${t.slug}`}>
+            // <Link key={i} href={`/tags/${t.slug}`}>
                 <a className="btn btn-outline-primary mr-1 ml-1 mt-3">{t.name}</a>
-            </Link>
+            // </Link>
         ));
 
-    const showRelatedBlog = () => {
-        return related.map((blog, i) => (
-            <div className="col-md-4" key={i}>
-                <article>
-                    <SmallCard blog={blog} />
-                </article>
-            </div>
-        ));
-    };
+    
 
+    
     return (
         <React.Fragment>
             {head()}
@@ -113,14 +107,7 @@ const SingleBlog = ({ blog, query }) => {
                             </section>
                         </div>
 
-                        {/* <div className="container">
-                            <h4 className="text-center pt-5 pb-5 h2">Related blogs</h4>
-                            <div className="row">{showRelatedBlog()}</div>
-                        </div>
-
-                        <div className="container pb-5">
-                            <p>show comments</p>
-                        </div> */}
+                        
                     </article>
                 </main>
             </Layout>

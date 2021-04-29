@@ -1,11 +1,8 @@
 import Layout from '../../components/Layout';
 import Admin from '../../components/auth/Admin';
-import BlogRead from '../../components/crud/BlogRead';
-import { isAuth } from '../../actions/auth';
 import Link from 'next/link';
-import React from 'react';
+
 const AdminIndex = () => {
-    const username = isAuth() && isAuth().username;
     return (
         <Layout>
             <Admin>
@@ -15,7 +12,7 @@ const AdminIndex = () => {
                             <h2>Admin Dashboard</h2>
                         </div>
                         <div className="col-md-4">
-                            <ul class="list-group">
+                            <ul className="list-group">
                                 <li className="list-group-item">
                                     <Link href="/admin/crud/category-tag">
                                         <a>Create Category</a>
@@ -28,15 +25,6 @@ const AdminIndex = () => {
                                     </Link>
                                 </li>
 
-                                <li className="list-group-item">
-                                    <a href="/admin/crud/blog">Create Blog</a>
-                                </li>
-
-                                <li className="list-group-item">
-                                    <Link href="/admin/crud/blogs">
-                                        <a>Update/Delete Blog</a>
-                                    </Link>
-                                </li>
 
                                 <li className="list-group-item">
                                     <Link href="/user/update">
@@ -45,13 +33,9 @@ const AdminIndex = () => {
                                 </li>
                             </ul>
                         </div>
-                        {/* <div className="col-md-8">right</div> */}
+ 
                     </div>
                 </div>
-                {/* <div>
-                All the blog by  this user posrt here `{username}`
-                <BlogRead username={username} />
-                </div> */}
             </Admin>
         </Layout>
     );

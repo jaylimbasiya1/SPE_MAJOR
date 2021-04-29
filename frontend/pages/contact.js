@@ -1,15 +1,16 @@
 import Layout from '../components/Layout';
-import SignupComponent from '../components/auth/SignupComponent';
 import Link from 'next/link';
+import ContactForm from '../components/form/ContactForm';
 
-const Signup = () => {
+const Contact = () => {
     return (
         <Layout>
             <div className="container-fluid">
-                <h2 className="text-center pt-4 pb-4">Signup</h2>
                 <div className="row">
-                    <div className="col-md-6 offset-md-3">
-                        <SignupComponent />
+                    <div className="col-md-8 offset-md-2">
+                        <h2>Contact form</h2>
+                        <hr />
+                        <ContactForm />
                     </div>
                 </div>
             </div>
@@ -17,4 +18,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Contact;

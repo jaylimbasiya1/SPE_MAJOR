@@ -2,7 +2,7 @@ import Layout from '../../../components/Layout';
 import Private from '../../../components/auth/Private';
 import BlogCreate from '../../../components/crud/BlogCreate';
 import Link from 'next/link';
-import React from 'react';
+
 const CreateBlog = () => {
     return (
         <Layout>

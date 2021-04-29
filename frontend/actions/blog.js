@@ -2,7 +2,7 @@ import fetch from 'isomorphic-fetch';
 import { API } from '../config';
 import queryString from 'query-string';
 import { isAuth, handleResponse } from './auth';
-import React from 'react';
+
 export const createBlog = (blog, token) => {
     let createBlogEndpoint;
 
@@ -27,12 +27,12 @@ export const createBlog = (blog, token) => {
         .catch(err => console.log(err));
 };
 
-export const listBlogsWithCategoriesAndTags = (skip, limit ,username) => {
+export const listBlogsWithCategoriesAndTags = (skip, limit) => {
     const data = {
         limit,
         skip
     };
-    return fetch(`${API}/${username}/blogs-categories-tags`, {
+    return fetch(`${API}/blogs-categories-tags`, {
         method: 'POST',
         headers: {
             Accept: 'application/json',
@@ -45,24 +45,8 @@ export const listBlogsWithCategoriesAndTags = (skip, limit ,username) => {
         })
         .catch(err => console.log(err));
 };
-export const list = username => {
-    let listBlogsEndpoint;
 
-    if (username) {
-        listBlogsEndpoint = `${API}/${username}/blogs`;
-    } else {
-        listBlogsEndpoint = `${API}/blogs`;
-    }
-
-    return fetch(`${listBlogsEndpoint}`, {
-        method: 'GET'
-    })
-        .then(response => {
-            return response.json();
-        })
-        .catch(err => console.log(err));
-};
-export const singleBlog = slug => {
+export const singleBlog = (slug = undefined) => {
     return fetch(`${API}/blog/${slug}`, {
         method: 'GET'
     })
@@ -87,7 +71,23 @@ export const listRelated = blog => {
         .catch(err => console.log(err));
 };
 
+export const list = username => {
+    let listBlogsEndpoint;
 
+    if (username) {
+        listBlogsEndpoint = `${API}/${username}/blogs`;
+    } else {
+        listBlogsEndpoint = `${API}/blogs`;
+    }
+
+    return fetch(`${listBlogsEndpoint}`, {
+        method: 'GET'
+    })
+        .then(response => {
+            return response.json();
+        })
+        .catch(err => console.log(err));
+};
 
 export const removeBlog = (slug, token) => {
     let deleteBlogEndpoint;

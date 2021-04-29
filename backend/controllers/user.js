@@ -76,7 +76,7 @@ exports.update = (req, res) => {
         user.save((err, result) => {
             if (err) {
                 return res.status(400).json({
-                    error: 'All filds required'
+                    error: errorHandler(err)
                 });
             }
             user.hashed_password = undefined;

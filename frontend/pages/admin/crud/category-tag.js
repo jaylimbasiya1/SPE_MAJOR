@@ -3,7 +3,7 @@ import Admin from '../../../components/auth/Admin';
 import Category from '../../../components/crud/Category';
 import Tag from '../../../components/crud/Tag';
 import Link from 'next/link';
-import React from 'react';
+
 const CategoryTag = () => {
     return (
         <Layout>

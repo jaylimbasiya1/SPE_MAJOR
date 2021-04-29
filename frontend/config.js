@@ -11,4 +11,7 @@ export const DOMAIN = publicRuntimeConfig.PRODUCTION === true
     ? publicRuntimeConfig.DOMAIN_PRODUCTION
     : publicRuntimeConfig.DOMAIN_DEVELOPMENT;
 
+    //currently no use
 export const FB_APP_ID = publicRuntimeConfig.FB_APP_ID;
+export const GOOGLE_CLIENT_ID = publicRuntimeConfig.GOOGLE_CLIENT_ID;
+export const DISQUS_SHORTNAME =`sasdwsfsfsdfsfs`;

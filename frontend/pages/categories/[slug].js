@@ -6,7 +6,7 @@ import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import renderHTML from 'react-render-html';
 import moment from 'moment';
 import Card from '../../components/blog/Card';
-import React from 'react';
+
 const Category = ({ category, blogs, query }) => {
     const head = () => (
         <Head>
