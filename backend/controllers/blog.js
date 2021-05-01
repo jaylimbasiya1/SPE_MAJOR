@@ -2,6 +2,7 @@ const Blog = require('../models/blog');
 const Category = require('../models/category');
 const Tag = require('../models/tag');
 const User = require('../models/user');
+const Analytics = require('../models/analytics');
 const formidable = require('formidable');
 const slugify = require('slugify');
 const stripHtml = require('string-strip-html');
@@ -118,15 +119,18 @@ exports.list = (req, res) => {
         });
 };
 
+//DONE -> all set
 exports.listAllBlogsCategoriesTags = (req, res) => {
     let limit = req.body.limit ? parseInt(req.body.limit) : 10;
     let skip = req.body.skip ? parseInt(req.body.skip) : 0;
-
+    let userid=req.body.userid;
+    console.log(`userid - list all blog called ${userid}`);
     let blogs;
     let categories;
     let tags;
 
-    Blog.find({})
+    // .sort(clicks: -1)
+    Blog.find({postedBy: userid}).sort({clicks: 1})
         .populate('categories', '_id name slug')
         .populate('tags', '_id name slug')
         .populate('postedBy', '_id name username profile')
@@ -164,8 +168,62 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
         });
 };
 
+//done 
 exports.read = (req, res) => {
     const slug = req.params.slug.toLowerCase();
+    let userid=req.params.userid;
+    console.log(`CAlled --->${slug}`);
+    console.log(`With UserId --> ${userid} and ${typeof(userid)}`);
+    let postid;
+    if(slug!=="photo"){
+        Blog.findOne({ slug }).exec((err,olddata)=>{
+            if (err) {
+                return res.json({
+                    error: errorHandler(err)
+                });
+            }
+            olddata.clicks=olddata.clicks+1;
+            postid=olddata;
+            olddata.save((err1,res)=>{
+                if (err1) {
+                    return res.status(400).json({
+                        error: errorHandler(err)
+                    });
+                }
+            });
+            User.findOne({_id:userid}).exec((err,ress)=>{
+                if(err){
+        
+                }
+                else{
+
+                    let analytics = new Analytics();
+                    analytics.clickBy=ress;
+                    analytics.post=postid;
+
+                    analytics.save((err1,res)=>{
+                        if (err1) {
+                            return res.status(400).json({
+                                error: errorHandler(err)
+                            });
+                        }
+                        else{
+                            // console.log(ress);
+                            console.log("---------------------------------");
+                            console.log("Analytics Saved");
+                            console.log("---------------------------------");
+                        }
+        
+                    });
+        
+                }
+            });
+        });
+        
+    }
+   
+    
+
     Blog.findOne({ slug })
         // .select("-photo")
         .populate('categories', '_id name slug')
@@ -182,6 +240,7 @@ exports.read = (req, res) => {
         });
 };
 
+//already all set
 exports.remove = (req, res) => {
     const slug = req.params.slug.toLowerCase();
     Blog.findOneAndRemove({ slug }).exec((err, data) => {
@@ -196,6 +255,7 @@ exports.remove = (req, res) => {
     });
 };
 
+// already all set
 exports.update = (req, res) => {
     const slug = req.params.slug.toLowerCase();
 
@@ -259,6 +319,7 @@ exports.update = (req, res) => {
 };
 
 exports.photo = (req, res) => {
+    console.log("CAlling photo method");
     const slug = req.params.slug.toLowerCase();
     Blog.findOne({ slug })
         .select('photo')
@@ -292,14 +353,35 @@ exports.listRelated = (req, res) => {
         });
 };
 
-//
+//Done --> added
 exports.listSearch = (req, res) => {
-    console.log(req.query);
+    
+    console.log(`dekhon ${req.query.userid}`);
     const { search } = req.query;
+    // let userid1;
+    // User.findOne({ _id: req.query.userid}).exec((err, user) => {
+    //     if (err) {
+    //         return res.status(400).json({
+    //             error: errorHandler(err)
+    //         });
+    //     }{
+    //         console.log("USER INFO FOUND");
+    //         console.log(user);
+    //         userid1=user._id;
+    //         console.log("USER INFO FOUND");
+    //     }
+        
+    // });
     if (search) {
+
         Blog.find(
-            {
-                $or: [{ title: { $regex: search, $options: 'i' } }, { body: { $regex: search, $options: 'i' } }]
+            // {postedBy: req.query.userid},
+            {   
+                $and:[
+                    {postedBy: req.query.userid},
+                    {$or: [{ title: { $regex: search, $options: 'i' } }, { body: { $regex: search, $options: 'i' } }]}
+                ]
+                
             },
             (err, blogs) => {
                 if (err) {
@@ -311,6 +393,10 @@ exports.listSearch = (req, res) => {
             }
         ).select('-photo -body');
     }
+    //--------------------------
+    
+
+
 };
 
 exports.listByUser = (req, res) => {

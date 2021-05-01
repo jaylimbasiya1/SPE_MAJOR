@@ -3,7 +3,10 @@ import { API } from '../config';
 import queryString from 'query-string';
 import { isAuth, handleResponse } from './auth';
 
+//Done already
 export const createBlog = (blog, token) => {
+    console.log(`Creat blog called`);
+    
     let createBlogEndpoint;
 
     if (isAuth() && isAuth().role === 1) {
@@ -27,10 +30,13 @@ export const createBlog = (blog, token) => {
         .catch(err => console.log(err));
 };
 
-export const listBlogsWithCategoriesAndTags = (skip, limit) => {
+//Done
+export const listBlogsWithCategoriesAndTags = (skip, limit,userid) => {
+    console.log(`List blog with Categories called  with ${skip},${limit},${userid}`);
     const data = {
         limit,
-        skip
+        skip,
+        userid
     };
     return fetch(`${API}/blogs-categories-tags`, {
         method: 'POST',
@@ -46,8 +52,12 @@ export const listBlogsWithCategoriesAndTags = (skip, limit) => {
         .catch(err => console.log(err));
 };
 
-export const singleBlog = (slug = undefined) => {
-    return fetch(`${API}/blog/${slug}`, {
+
+export const singleBlog = (slug = undefined,userid) => {
+    console.log(`Single blogsasasasasas called wiht slug ${slug} with userif ${userid}`);
+    let userid1=isAuth() && isAuth()._id;
+    console.log(`printig Single ${userid1}`);
+    return fetch(`${API}/blog/${slug}/${userid}`, {
         method: 'GET'
     })
         .then(response => {
@@ -56,7 +66,9 @@ export const singleBlog = (slug = undefined) => {
         .catch(err => console.log(err));
 };
 
-export const listRelated = blog => {
+
+export const listRelated = (blog,userid) => {
+    console.log(`list related called ${userid}`);
     return fetch(`${API}/blogs/related`, {
         method: 'POST',
         headers: {
@@ -71,7 +83,9 @@ export const listRelated = blog => {
         .catch(err => console.log(err));
 };
 
+//
 export const list = username => {
+    console.log(`LisT called ${username}`);
     let listBlogsEndpoint;
 
     if (username) {
@@ -89,7 +103,9 @@ export const list = username => {
         .catch(err => console.log(err));
 };
 
+//
 export const removeBlog = (slug, token) => {
+    console.log(`remove blog called`);
     let deleteBlogEndpoint;
 
     if (isAuth() && isAuth().role === 1) {
@@ -113,6 +129,7 @@ export const removeBlog = (slug, token) => {
         .catch(err => console.log(err));
 };
 
+//
 export const updateBlog = (blog, token, slug) => {
     let updateBlogEndpoint;
 

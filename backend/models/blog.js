@@ -21,6 +21,11 @@ const blogSchema = new mongoose.Schema(
             min: 200,
             max: 2000000
         },
+        clicks: {
+            type: Number,
+            default: 0
+        }
+        ,
         excerpt: {
             type: String,
             max: 1000

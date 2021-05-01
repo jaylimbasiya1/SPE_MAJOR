@@ -8,6 +8,8 @@ import { listBlogsWithCategoriesAndTags } from '../../actions/blog';
 import Card from '../../components/blog/Card';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
 import React from 'react';
+import { isAuth } from '../../actions/auth';
+let userid = isAuth() && isAuth()._id; 
 const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, router }) => {
     const head = () => (
         <Head>
@@ -40,7 +42,8 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
 
     const loadMore = () => {
         let toSkip = skip + limit;
-        listBlogsWithCategoriesAndTags(toSkip, limit).then(data => {
+        userid = isAuth() && isAuth()._id;
+        listBlogsWithCategoriesAndTags(toSkip, limit,userid).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -102,7 +105,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
         <React.Fragment>
             {head()}
             <Layout>
-               
+               <Private>
                 <main>
                     <div className="container-fluid">
                         <header>
@@ -118,7 +121,7 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
                     <div className="container-fluid">{showLoadedBlogs()}</div>
                     <div className="text-center pt-5 pb-5">{loadMoreButton()}</div>
                 </main>
-               
+                </Private>
             </Layout>
         </React.Fragment>
     );
@@ -127,7 +130,8 @@ const Blogs = ({ blogs, categories, tags, totalBlogs, blogsLimit, blogSkip, rout
 Blogs.getInitialProps = () => {
     let skip = 0;
     let limit = 2;
-    return listBlogsWithCategoriesAndTags(skip, limit).then(data => {
+    userid = isAuth() && isAuth()._id;
+    return listBlogsWithCategoriesAndTags(skip, limit,userid).then(data => {
         if (data.error) {
             console.log(data.error);
         } else {

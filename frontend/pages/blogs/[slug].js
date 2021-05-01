@@ -1,6 +1,7 @@
 import Head from 'next/head';
 import Link from 'next/link';
 import Layout from '../../components/Layout';
+import Private from '../../components/auth/Private';
 import { useState, useEffect } from 'react';
 import { singleBlog, listRelated } from '../../actions/blog';
 import { API, DOMAIN, APP_NAME, FB_APP_ID } from '../../config';
@@ -9,11 +10,13 @@ import moment from 'moment';
 import SmallCard from '../../components/blog/SmallCard';
 
 import React from 'react';
-const SingleBlog = ({ blog, query }) => {
+import { isAuth } from '../../actions/auth';
+let userid=isAuth() && isAuth()._id;
+const SingleBlog = ({ blog, query ,userid}) => {
     const [related, setRelated] = useState([]);
 
-    const loadRelated = () => {
-        listRelated({ blog }).then(data => {
+    const loadRelated = (userid) => {
+        listRelated({ blog ,userid}).then(data => {
             if (data.error) {
                 console.log(data.error);
             } else {
@@ -23,7 +26,7 @@ const SingleBlog = ({ blog, query }) => {
     };
 
     useEffect(() => {
-        loadRelated();
+        loadRelated(userid);
     }, []);
 
     const head = () => (
@@ -67,6 +70,7 @@ const SingleBlog = ({ blog, query }) => {
         <React.Fragment>
             {head()}
             <Layout>
+                <Private>
                 <main>
                     <article>
                         <div className="container-fluid">
@@ -90,7 +94,7 @@ const SingleBlog = ({ blog, query }) => {
                                         </Link>{' '}
                                         | Published {moment(blog.updatedAt).fromNow()}
                                     </p>
-
+                                    <h1>SINLGLE BLOG</h1>
                                     <div className="pb-3">
                                         {showBlogCategories(blog)}
                                         {showBlogTags(blog)}
@@ -110,18 +114,20 @@ const SingleBlog = ({ blog, query }) => {
                         
                     </article>
                 </main>
+                </Private>
             </Layout>
         </React.Fragment>
     );
 };
+userid=isAuth() && isAuth()._id;
+SingleBlog.getInitialProps = ({ query,userid=isAuth() && isAuth()._id}) => {
 
-SingleBlog.getInitialProps = ({ query }) => {
-    return singleBlog(query.slug).then(data => {
+    return singleBlog(query.slug,userid=isAuth() && isAuth()._id).then(data => {
         if (data.error) {
             console.log(data.error);
         } else {
             // console.log('GET INITIAL PROPS IN SINGLE BLOG', data);
-            return { blog: data, query };
+            return { blog: data, query,userid };
         }
     });
 };

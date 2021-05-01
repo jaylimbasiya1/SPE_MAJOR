@@ -2,7 +2,9 @@ import Link from 'next/link';
 import renderHTML from 'react-render-html';
 import { useState, useEffect } from 'react';
 import { listSearch } from '../../actions/blog';
+import { isAuth } from '../../actions/auth';
 import React from 'react';
+let userid=isAuth() && isAuth()._id;
 const Search = () => {
     const [values, setValues] = useState({
         search: undefined,
@@ -15,7 +17,7 @@ const Search = () => {
 
     const searchSubmit = e => {
         e.preventDefault();
-        listSearch({ search }).then(data => {
+        listSearch({ search,userid }).then(data => {
             setValues({ ...values, results: data, searched: true, message: `${data.length} blogs found` });
         });
     };

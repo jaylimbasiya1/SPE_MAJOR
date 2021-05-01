@@ -1,4 +1,5 @@
 const User = require('../models/user');
+const Analytics = require('../models/analytics');
 const Blog = require('../models/blog');
 const _ = require('lodash');
 const formidable = require('formidable');
@@ -100,4 +101,28 @@ exports.photo = (req, res) => {
             return res.send(user.photo.data);
         }
     });
+};
+
+exports.analyticss=(req,res)=>{
+    let id;
+    User.find({_id:"60882d50419452876271a987"}).exec((err,user)=>{
+        if(err){
+
+        }
+        else{
+            Analytics.aggregate([
+                { $match: { clickBy: user._id }},
+                { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt"} }, count: { $sum: 1 } } },
+                { $sort: { _id: 1} }
+              ]).exec((err,data)=>{
+                if(err){
+                    console.log(err);
+                }
+                else{
+                    console.log(data);
+                }
+            });  
+        }
+    });
+    
 };
