@@ -10,10 +10,9 @@ const UserProfileUpdate = () => {
         <Layout>
             <Private>       
                 <div className="container-fluid">
-                    <div className="row">
+                   
                        <Analytics/>
-                    </div>
-                </div>
+                                   </div>
             </Private>
         </Layout>
     );

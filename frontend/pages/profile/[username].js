@@ -12,18 +12,7 @@ const UserProfile = ({ user, blogs, query }) => {
             <title>
                 {user.username} | {APP_NAME}
             </title>
-            <meta name="description" content={`Blogs by ${user.username}`} />
-            <link rel="canonical" href={`${DOMAIN}/profile/${query.username}`} />
-            <meta property="og:title" content={`${user.username}| ${APP_NAME}`} />
-            <meta property="og:description" content={`Blogs by ${user.username}`} />
-            <meta property="og:type" content="webiste" />
-            <meta property="og:url" content={`${DOMAIN}/profile/${query.username}`} />
-            <meta property="og:site_name" content={`${APP_NAME}`} />
-
-            <meta property="og:image" content={`${DOMAIN}/static/images/seoblog.jpg`} />
-            <meta property="og:image:secure_url" content={`${DOMAIN}/static/images/seoblog.jpg`} />
-            <meta property="og:image:type" content="image/jpg" />
-            <meta property="fb:app_id" content={`${FB_APP_ID}`} />
+            
         </Head>
     );
 
@@ -76,7 +65,7 @@ const UserProfile = ({ user, blogs, query }) => {
                             <div className="card">
                                 <div className="card-body">
                                     <h5 className="card-title bg-primary pt-4 pb-4 pl-4 pr-4 text-white">
-                                        Recent blogs by {user.name}
+                                        Recent Post by {user.name}
                                     </h5>
 
                                     {showUserBlogs()}

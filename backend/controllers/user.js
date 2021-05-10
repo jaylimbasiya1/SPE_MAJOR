@@ -104,22 +104,33 @@ exports.photo = (req, res) => {
 };
 
 exports.analyticss=(req,res)=>{
-    let id;
-    User.find({_id:"60882d50419452876271a987"}).exec((err,user)=>{
+    
+    let userid=req.params.userid;
+    console.log("userid ",userid);
+    User.find({_id:userid}).exec((err,user)=>{
         if(err){
 
         }
         else{
+            console.log("Printing User",user.username);
             Analytics.aggregate([
-                { $match: { clickBy: user._id }},
-                { $group: { _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt"} }, count: { $sum: 1 } } },
-                { $sort: { _id: 1} }
+                
+                
+                {$group : {
+                    _id :{ $dateToString: { format: "%Y-%m-%d", date: "$createdAt"} },
+                    // list: { $push: "$$ROOT" },
+                    count: { $sum: 1 }
+                 }},
+                 { $match: { clickBy: user._id }}
+                
               ]).exec((err,data)=>{
                 if(err){
                     console.log(err);
                 }
                 else{
-                    console.log(data);
+
+                    console.log("User medfdffdf---->",data);
+                    return res.json(data);
                 }
             });  
         }

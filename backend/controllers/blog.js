@@ -170,12 +170,14 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
 
 //done 
 exports.read = (req, res) => {
-    const slug = req.params.slug.toLowerCase();
+    
+    let slug = req.params.slug.toLowerCase();
     let userid=req.params.userid;
-    console.log(`CAlled --->${slug}`);
-    console.log(`With UserId --> ${userid} and ${typeof(userid)}`);
+    
     let postid;
     if(slug!=="photo"){
+        console.log(`CAlling Reading wiht Slug--->${slug}`);
+        // console.log(`With UserId --> ${userid} and ${typeof(userid)}`);
         Blog.findOne({ slug }).exec((err,olddata)=>{
             if (err) {
                 return res.json({
@@ -219,12 +221,7 @@ exports.read = (req, res) => {
                 }
             });
         });
-        
-    }
-   
-    
-
-    Blog.findOne({ slug })
+        Blog.findOne({ slug })
         // .select("-photo")
         .populate('categories', '_id name slug')
         .populate('tags', '_id name slug')
@@ -238,6 +235,30 @@ exports.read = (req, res) => {
             }
             res.json(data);
         });
+
+    }
+    else{
+        slug=userid;   
+        console.log(`CAlling Reading wiht Slug--->${slug}`);
+        Blog.findOne({ slug })
+        // .select("-photo")
+        .populate('categories', '_id name slug')
+        .populate('tags', '_id name slug')
+        .populate('postedBy', '_id name username')
+        .select('_id title body slug mtitle mdesc categories tags postedBy createdAt updatedAt')
+        .exec((err, data) => {
+            if (err) {
+                return res.json({
+                    error: errorHandler(err)
+                });
+            }
+            res.json(data);
+        });
+    }
+   
+    
+
+   
 };
 
 //already all set
@@ -319,8 +340,8 @@ exports.update = (req, res) => {
 };
 
 exports.photo = (req, res) => {
-    console.log("CAlling photo method");
     const slug = req.params.slug.toLowerCase();
+    console.log("CAlling photo method ",slug);
     Blog.findOne({ slug })
         .select('photo')
         .exec((err, blog) => {

@@ -54,7 +54,7 @@ export const listBlogsWithCategoriesAndTags = (skip, limit,userid) => {
 
 
 export const singleBlog = (slug = undefined,userid) => {
-    console.log(`Single blogsasasasasas called wiht slug ${slug} with userif ${userid}`);
+    console.log(`Single blogsasasasasas called wiht slug ${slug} with userid ${userid}`);
     let userid1=isAuth() && isAuth()._id;
     console.log(`printig Single ${userid1}`);
     return fetch(`${API}/blog/${slug}/${userid}`, {
