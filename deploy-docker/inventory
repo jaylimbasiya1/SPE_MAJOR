@@ -1,2 +1,2 @@
 [ubuntu]
-localhost ansible_user=jay
+localhost ansible_user=jay ansible_ssh_user=jay ansible_ssh_pass=root
