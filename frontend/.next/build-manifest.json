@@ -24,15 +24,15 @@
       "static/chunks/main.js",
       "static/chunks/pages/_error.js"
     ],
-    "/user/analytic": [
+    "/auth/password/forgot": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/user/analytic.js"
+      "static/chunks/pages/auth/password/forgot.js"
     ],
-    "/user/crud/blog": [
+    "/auth/password/reset/[id]": [
       "static/chunks/webpack.js",
       "static/chunks/main.js",
-      "static/chunks/pages/user/crud/blog.js"
+      "static/chunks/pages/auth/password/reset/[id].js"
     ]
   },
   "ampFirstPages": []
