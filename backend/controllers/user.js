@@ -5,7 +5,7 @@ const _ = require('lodash');
 const formidable = require('formidable');
 const fs = require('fs');
 const { errorHandler } = require('../helpers/dbErrorHandler');
-
+const logger = require('../logger/log');
 exports.read = (req, res) => {
     req.profile.hashed_password = undefined;
     return res.json(req.profile);
@@ -80,6 +80,7 @@ exports.update = (req, res) => {
                     error: errorHandler(err)
                 });
             }
+            logger.warn(`Profile Updated for ${user._id}`);
             user.hashed_password = undefined;
             user.salt = undefined;
             user.photo = undefined;
@@ -107,6 +108,7 @@ exports.analyticss=(req,res)=>{
     
     let userid=req.params.userid;
     console.log("userid ",userid);
+    logger.info(`${userid} Checked Analytics`);
     User.find({_id:userid}).exec((err,user)=>{
         if(err){
 
@@ -129,7 +131,7 @@ exports.analyticss=(req,res)=>{
                 }
                 else{
 
-                    console.log("User medfdffdf---->",data);
+                    // console.log("User medfdffdf---->",data);
                     return res.json(data);
                 }
             });  

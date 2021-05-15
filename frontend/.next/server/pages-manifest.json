@@ -2,6 +2,6 @@
   "/_document": "pages/_document.js",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/blogs/[slug]": "pages/blogs/[slug].js",
+  "/user/crud/blog": "pages/user/crud/blog.js",
   "/user/analytic": "pages/user/analytic.js"
 }

@@ -15,19 +15,10 @@ const logger = createLogger({
   
   transports: [
     new transports.File({
-        filename: 'Analytics.log',
+        filename: 'SPE_MAJOR.log',
         level: 'info',
         format: format.combine(format.timestamp(), format.json())
         
-    }),
-    new transports.MongoDB({
-        level: 'info',
-        db: process.env.DATABASE_LOCAL,
-        options: {
-            useUnifiedTopology: true
-        },
-        collection: 'Analytics',
-        format: format.combine(format.timestamp(), format.json())
     })
 ]
 });

@@ -10,6 +10,7 @@ const _ = require('lodash');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 const fs = require('fs');
 const { smartTrim } = require('../helpers/blog');
+const logger = require('../logger/log');
 
 exports.create = (req, res) => {
     let form = new formidable.IncomingForm();
@@ -68,7 +69,7 @@ exports.create = (req, res) => {
             blog.photo.data = fs.readFileSync(files.photo.path);
             blog.photo.contentType = files.photo.type;
         }
-
+        logger.info(`${userid} Created ${blog.slug}`);
         blog.save((err, result) => {
             if (err) {
                 return res.status(400).json({
@@ -128,7 +129,7 @@ exports.listAllBlogsCategoriesTags = (req, res) => {
     let blogs;
     let categories;
     let tags;
-
+    logger.info(`${userid} listingAllBlogs `);
     // .sort(clicks: -1)
     Blog.find({postedBy: userid}).sort({clicks: 1})
         .populate('categories', '_id name slug')
@@ -173,7 +174,7 @@ exports.read = (req, res) => {
     
     let slug = req.params.slug.toLowerCase();
     let userid=req.params.userid;
-    
+    logger.info(`${userid} Start reading ${slug}`);
     let postid;
     if(slug!=="photo"){
         console.log(`CAlling Reading wiht Slug--->${slug}`);
@@ -263,6 +264,7 @@ exports.read = (req, res) => {
 
 //already all set
 exports.remove = (req, res) => {
+    
     const slug = req.params.slug.toLowerCase();
     Blog.findOneAndRemove({ slug }).exec((err, data) => {
         if (err) {
@@ -270,6 +272,7 @@ exports.remove = (req, res) => {
                 error: errorHandler(err)
             });
         }
+        logger.warn(`${userid} removed ${slug}`);
         res.json({
             message: 'Blog deleted successfully'
         });
@@ -325,7 +328,7 @@ exports.update = (req, res) => {
                 oldBlog.photo.data = fs.readFileSync(files.photo.path);
                 oldBlog.photo.contentType = files.photo.type;
             }
-
+            logger.info(`${userid} update ${slug}`);
             oldBlog.save((err, result) => {
                 if (err) {
                     return res.status(400).json({

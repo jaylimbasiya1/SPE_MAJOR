@@ -9,7 +9,7 @@ const nodemailer = require('nodemailer');
 const { google } = require('googleapis');
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-
+const logger=require('../logger/log');
 
 exports.preSignup = (req, res) => {
     const { name, email, password } = req.body;
@@ -62,7 +62,7 @@ exports.preSignup = (req, res) => {
             <p>https://speproject.com</p>
         `
         };
-
+        logger.info(`${email} sent for presign `);
         transport.sendMail(emailData).then(sent => {
             return res.json({
                 message: `Email has been sent to ${email}. Follow the instructions to activate your account.`
@@ -129,12 +129,14 @@ exports.signup = (req, res) => {
                         error: errorHandler(err)
                     });
                 }
+                logger.info(`${email} Signup Sucess`);
                 return res.json({
                     message: 'Singup success! Please signin'
                 });
             });
         });
     } else {
+        logger.warn(`${email} Signup Fail`);
         return res.json({
             message: 'Something went wrong. Try again'
         });
@@ -154,6 +156,7 @@ exports.signin = (req, res) => {
         }
         // authenticate
         if (!user.authenticate(password)) {
+            logger.warn(`${email} Unauth Signin-try`);
             return res.status(400).json({
                 error: 'Email and password do not match.'
             });
@@ -163,6 +166,7 @@ exports.signin = (req, res) => {
 
         res.cookie('token', token, { expiresIn: '1d' });
         const { _id, username, name, email, role } = user;
+        logger.info(`${email} Signin-Sucess`);
         return res.json({
             token,
             user: { _id, username, name, email, role }

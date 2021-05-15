@@ -2,11 +2,11 @@ const Category = require('../models/category');
 const Blog = require('../models/blog');
 const slugify = require('slugify');
 const { errorHandler } = require('../helpers/dbErrorHandler');
-
+const logger = require('../logger/log');
 exports.create = (req, res) => {
     const { name } = req.body;
     let slug = slugify(name).toLowerCase();
-
+    logger.info(`Category ${slug} Created`);
     let category = new Category({ name, slug });
 
     category.save((err, data) => {
@@ -65,6 +65,7 @@ exports.remove = (req, res) => {
                 error: errorHandler(err)
             });
         }
+        logger.info(`Category ${slug} Removed`);
         res.json({
             message: 'Category deleted successfully'
         });

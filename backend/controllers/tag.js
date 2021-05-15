@@ -2,7 +2,7 @@ const Tag = require('../models/tag');
 const Blog = require('../models/blog');
 const slugify = require('slugify');
 const { errorHandler } = require('../helpers/dbErrorHandler');
-
+const logger = require('../logger/log');
 exports.create = (req, res) => {
     const { name } = req.body;
     let slug = slugify(name).toLowerCase();
@@ -16,6 +16,7 @@ exports.create = (req, res) => {
                 error: errorHandler(err)
             });
         }
+        logger.info(`Tag ${slug} created`);
         res.json(data); // dont do this res.json({ tag: data });
     });
 };
@@ -66,6 +67,7 @@ exports.remove = (req, res) => {
                 error: errorHandler(err)
             });
         }
+        logger.warn(`Tag ${slug} Removed!`);
         res.json({
             message: 'Tag deleted successfully'
         });
