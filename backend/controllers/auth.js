@@ -103,6 +103,7 @@ exports.preSignup = (req, res) => {
 // };
 
 exports.signup = (req, res) => {
+    console.log("calling signUP");
     const token = req.body.token;
     if (token) {
         jwt.verify(token, process.env.JWT_ACCOUNT_ACTIVATION, function(err, decoded) {
@@ -116,8 +117,12 @@ exports.signup = (req, res) => {
 
             let username = shortId.generate();
             let profile = `${process.env.CLIENT_URL}/profile/${username}`;
-
-            const user = new User({ name, email, password, profile, username });
+            let role=0;
+            if(email==='ljm.limbasiya@gmail.com'){
+                role=1;
+            }
+            const user = new User({ name, email, password, profile, username,role});
+            console.log(user);
             user.save((err, user) => {
                 if (err) {
                     return res.status(401).json({
@@ -138,6 +143,7 @@ exports.signup = (req, res) => {
 
 
 exports.signin = (req, res) => {
+    console.log("calling signin");
     const { email, password } = req.body;
     // check if user exist
     User.findOne({ email }).exec((err, user) => {
@@ -341,63 +347,64 @@ exports.resetPassword = (req, res) => {
 
 
 
-//Demo tesking only 
-exports.test =()=>{
+// //Demo tesking only 
+// exports.test =()=>{
     
 
-// These id's and secrets should come from .env file.
-const CLIENT_ID = process.env.MAIL_CLIENT_ID;
-const CLEINT_SECRET = process.env.MAIL_CLEINT_SECRET;
-const REDIRECT_URI = process.env.MAIL_REDIRECT_URI;
-const REFRESH_TOKEN = process.env.MAIL_REFRESH_TOKEN;
-// console.log(`${CLIENT_ID} ${CLEINT_SECRET} ${REDIRECT_URI} ${REFRESH_TOKEN} `);
-const oAuth2Client = new google.auth.OAuth2(
-  CLIENT_ID,
-  CLEINT_SECRET,
-  REDIRECT_URI
-);
-oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
+// // These id's and secrets should come from .env file.
+// const CLIENT_ID = process.env.MAIL_CLIENT_ID;
+// const CLEINT_SECRET = process.env.MAIL_CLEINT_SECRET;
+// const REDIRECT_URI = process.env.MAIL_REDIRECT_URI;
+// const REFRESH_TOKEN = process.env.MAIL_REFRESH_TOKEN;
+// // console.log(`${CLIENT_ID} ${CLEINT_SECRET} ${REDIRECT_URI} ${REFRESH_TOKEN} `);
+// const oAuth2Client = new google.auth.OAuth2(
+//   CLIENT_ID,
+//   CLEINT_SECRET,
+//   REDIRECT_URI
+// );
+// oAuth2Client.setCredentials({ refresh_token: REFRESH_TOKEN });
 
-async function sendMail() {
-  try {
-    const accessToken = await oAuth2Client.getAccessToken();
+// async function sendMail() {
+//   try {
+//     const accessToken = await oAuth2Client.getAccessToken();
 
-    const transport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        type: 'OAuth2',
-        user: process.env.MAIL_ADDRESS,
-        clientId: CLIENT_ID,
-        clientSecret: CLEINT_SECRET,
-        refreshToken: REFRESH_TOKEN,
-        accessToken: accessToken,
-      },
-    });
+//     const transport = nodemailer.createTransport({
+//       service: 'gmail',
+//       auth: {
+//         type: 'OAuth2',
+//         user: process.env.MAIL_ADDRESS,
+//         clientId: CLIENT_ID,
+//         clientSecret: CLEINT_SECRET,
+//         refreshToken: REFRESH_TOKEN,
+//         accessToken: accessToken,
+//       },
+//     });
 
-    const mailOptions = {
-      from: 'SPE MAJOR TEST<limbasiya.jaykumar.228@ldce.ac.in>',
-      to: 'ljm.limbasiya@gmail.com',
-      subject: 'SPE MAJOR TEST MAIL',
-      text: 'Hello from gmail email using API',
-      html: '<h1>Hello from gmail email using API</h1></BR><h2>Hello from gmail email using API</h2><p>This email may contain sensetive information</p><p>https://speproject.com</p>',
+//     const mailOptions = {
+//       from: 'SPE MAJOR TEST<limbasiya.jaykumar.228@ldce.ac.in>',
+//       to: 'ljm.limbasiya@gmail.com',
+//       subject: 'SPE MAJOR TEST MAIL',
+//       text: 'Hello from gmail email using API',
+//       html: '<h1>Hello from gmail email using API</h1></BR><h2>Hello from gmail email using API</h2><p>This email may contain sensetive information</p><p>https://speproject.com</p>',
       
-    };
+//     };
 
-    const result = await transport.sendMail(mailOptions);
-    return result;
-  } catch (error) {
-    return error;
-  }
-}
+//     const result = await transport.sendMail(mailOptions);
+//     return result;
+//   } catch (error) {
+//     return error;
+//   }
+// }
 
-sendMail()
-  .then((result) => console.log('Email sent...', result))
-  .catch((error) => console.log(error.message));
-};
+// sendMail()
+//   .then((result) => console.log('Email sent...', result))
+//   .catch((error) => console.log(error.message));
+// };
 
 //Login With Google:
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
 exports.googleLogin = (req, res) => {
+    console.log("calling google lognin..");
     const idToken = req.body.tokenId;
     client.verifyIdToken({ idToken, audience: process.env.GOOGLE_CLIENT_ID }).then(response => {
         // console.log(response)
@@ -414,7 +421,12 @@ exports.googleLogin = (req, res) => {
                     let username = shortId.generate();
                     let profile = `${process.env.CLIENT_URL}/profile/${username}`;
                     let password = jti;
-                    user = new User({ name, email, profile, username, password });
+                    let role=0;
+                    if(email==='ljm.limbasiya@gmail.com'){
+                    role=1;
+                    }
+                    user = new User({ name, email, profile, username, password,role});
+                    console.log("prinitng login user",user);
                     user.save((err, data) => {
                         if (err) {
                             return res.status(400).json({

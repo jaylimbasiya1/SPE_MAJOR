@@ -61,16 +61,16 @@ const Index = () => {
                                             ')'
                                     }}
                                 >
-                                    <h2 className="text-shadow text-center h1">engineering </h2>
+                                    <h2 className="text-shadow text-center h1">Engineering </h2>
                                 </div>
                                 <div className="back text-center">
                                
                                         <a href="https://www.import.io/post/post-capture-url-of-image-with-data-extraction/" target="_blank">
-                                            <h3 className="h1">engineering </h3>
+                                            <h3 className="h1">Engineering </h3>
                                         </a>
                                
                                     <p className="lead">
-                                    Getting 75 percent attendence in each subject becomes more difficult than 75 percent getting marks
+                                    Getting 75 percent attendence in each subject becomes more difficult than getting 75 percent marks.
                                     </p>
                                 </div>
                             </div>
@@ -87,15 +87,15 @@ const Index = () => {
                                             ')'
                                     }}
                                 >
-                                    <h2 className="text-shadow text-center h1">Next</h2>
+                                    <h2 className="text-shadow text-center h1">Medical</h2>
                                 </div>
                                 <div className="back text-center">
                                     <Link href="/categories/nextjs">
                                         <a>
-                                            <h3 className="h1">Next Js</h3>
+                                            <h3 className="h1">Medical</h3>
                                         </a>
                                     </Link>
-                                    <p className="lead">A Production ready web framework for building SEO React apps</p>
+                                    <p className="lead">We love COVID-19 , Best time to earn Loat of Money...!</p>
                                 </div>
                             </div>
                         </div>

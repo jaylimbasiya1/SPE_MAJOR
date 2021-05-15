@@ -48,9 +48,8 @@ const SingleBlog = ({ blog, query ,userid}) => {
                 <a className="btn btn-outline-primary mr-1 ml-1 mt-3">{t.name}</a>
             // </Link>
         ));
-
     
-
+       
     
     return (
         <React.Fragment>
@@ -63,7 +62,7 @@ const SingleBlog = ({ blog, query ,userid}) => {
                             <section>
                                 <div className="row" style={{ marginTop: '-30px' }}>
                                     <img
-                                        src={`${API}/blog/photo/${blog.slug}`}
+                                        src="https://cdn.pixabay.com/photo/2012/08/27/14/19/mountains-55067_960_720.png"
                                         alt={blog.title}
                                         className="img img-fluid featured-image"
                                     />

@@ -209,15 +209,15 @@ const CreateBlog = ({ router }) => {
                 <div className="col-md-4">
                     <div>
                         <div className="form-group pb-2">
-                            <h5>Featured image</h5>
-                            <hr />
+                            {/* <h5>Featured image</h5> */}
+                            {/* <hr /> */}
 
-                            <small className="text-muted">Max size: 1mb</small>
-                            <br />
-                            <label className="btn btn-outline-info">
+                            {/* <small className="text-muted">Max size: 1mb</small> */}
+                            {/* <br /> */}
+                            {/* <label className="btn btn-outline-info">
                                 Upload featured image
                                 <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
-                            </label>
+                            </label> */}
                         </div>
                     </div>
                     <div>

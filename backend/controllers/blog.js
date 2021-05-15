@@ -341,7 +341,7 @@ exports.update = (req, res) => {
 
 exports.photo = (req, res) => {
     const slug = req.params.slug.toLowerCase();
-    console.log("CAlling photo method ",slug);
+    console.log("CAlling photo method with Slug-->",slug);
     Blog.findOne({ slug })
         .select('photo')
         .exec((err, blog) => {

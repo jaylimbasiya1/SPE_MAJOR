@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "test": "mocha"
   },
   "keywords": [],
   "author": "",
@@ -34,5 +35,10 @@
     "string-strip-html": "^4.4.1",
     "winston": "^3.3.3",
     "winston-mongodb": "^5.0.7"
+  },
+  "devDependencies": {
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "mocha": "^8.4.0"
   }
 }

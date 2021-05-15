@@ -44,7 +44,7 @@ const Card = ({ blog }) => {
             </section>
 
             <div className="row">
-                <div className="col-md-4">
+                {/* <div className="col-md-4">
                     <section>
                         <img
                             className="img img-fluid"
@@ -53,7 +53,7 @@ const Card = ({ blog }) => {
                             alt={blog.title}
                         />
                     </section>
-                </div>
+                </div> */}
                 <div className="col-md-8">
                     <section>
                         <div className="pb-3">{renderHTML(blog.excerpt)}</div>
