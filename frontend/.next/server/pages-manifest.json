@@ -2,6 +2,7 @@
   "/_document": "pages/_document.js",
   "/_app": "pages/_app.js",
   "/_error": "pages/_error.js",
-  "/auth/password/forgot": "pages/auth/password/forgot.js",
-  "/auth/password/reset/[id]": "pages/auth/password/reset/[id].js"
+  "/": "pages/index.js",
+  "/signin": "pages/signin.js",
+  "/blogs": "pages/blogs.js"
 }

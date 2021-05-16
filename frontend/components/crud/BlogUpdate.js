@@ -255,14 +255,14 @@ const BlogUpdate = ({ router }) => {
                         {showError()}
                     </div>
 
-                    {body && (
+                    {/* {body && (
                         <img src={`${API}/blog/photo/${router.query.slug}`} alt={title} style={{ width: '100%' }} />
-                    )}
+                    )} */}
                 </div>
 
                 <div className="col-md-4">
                     <div>
-                        <div className="form-group pb-2">
+                        {/* <div className="form-group pb-2">
                             <h5>Featured image</h5>
                             <hr />
 
@@ -272,7 +272,7 @@ const BlogUpdate = ({ router }) => {
                                 Upload featured image
                                 <input onChange={handleChange('photo')} type="file" accept="image/*" hidden />
                             </label>
-                        </div>
+                        </div> */}
                     </div>
                     <div>
                         <h5>Categories</h5>

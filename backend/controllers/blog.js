@@ -69,7 +69,7 @@ exports.create = (req, res) => {
             blog.photo.data = fs.readFileSync(files.photo.path);
             blog.photo.contentType = files.photo.type;
         }
-        logger.info(`${userid} Created ${blog.slug}`);
+        logger.info(`${blog.postedBy} Created ${blog.slug}`);
         blog.save((err, result) => {
             if (err) {
                 return res.status(400).json({
@@ -272,7 +272,7 @@ exports.remove = (req, res) => {
                 error: errorHandler(err)
             });
         }
-        logger.warn(`${userid} removed ${slug}`);
+        logger.warn(`Post removed-${slug}`);
         res.json({
             message: 'Blog deleted successfully'
         });
@@ -328,7 +328,7 @@ exports.update = (req, res) => {
                 oldBlog.photo.data = fs.readFileSync(files.photo.path);
                 oldBlog.photo.contentType = files.photo.type;
             }
-            logger.info(`${userid} update ${slug}`);
+            logger.info(`Post update ${slug}`);
             oldBlog.save((err, result) => {
                 if (err) {
                     return res.status(400).json({

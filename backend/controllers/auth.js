@@ -136,7 +136,7 @@ exports.signup = (req, res) => {
             });
         });
     } else {
-        logger.warn(`${email} Signup Fail`);
+        
         return res.json({
             message: 'Something went wrong. Try again'
         });
@@ -156,7 +156,7 @@ exports.signin = (req, res) => {
         }
         // authenticate
         if (!user.authenticate(password)) {
-            logger.warn(`${email} Unauth Signin-try`);
+            logger.warn(` Unauth Signin-try`);
             return res.status(400).json({
                 error: 'Email and password do not match.'
             });

@@ -2,7 +2,7 @@ const withCSS = require('@zeit/next-css');
 
 module.exports={
     publicRuntimeConfig: {
-        APP_NAME: 'spe_major',
+        APP_NAME: 'SPE_MAJOR_PROJECT',
         //API: 'http://localhost:8000/api',
         API_DEVELOPMENT: 'http://localhost:8000/api',
         API_PRODUCTIONS: 'https://spemajor.com',
