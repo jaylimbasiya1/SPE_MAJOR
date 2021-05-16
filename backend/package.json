@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
-    "test": "mocha --exit"
+    "test": "mocha `test/*.js` --reporter mocha-junit-reporter --timeout 60000 --exit"
   },
   "keywords": [],
   "author": "",
@@ -39,6 +39,7 @@
   "devDependencies": {
     "chai": "^4.3.4",
     "chai-http": "^4.3.0",
-    "mocha": "^8.4.0"
+    "mocha": "^8.4.0",
+    "mocha-junit-reporter": "^2.0.0"
   }
 }
