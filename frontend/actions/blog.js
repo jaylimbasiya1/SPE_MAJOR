@@ -4,6 +4,7 @@ import queryString from 'query-string';
 import { isAuth, handleResponse } from './auth';
 
 //Done already
+// Tested too
 export const createBlog = (blog, token) => {
     console.log(`Creat blog called`);
     
